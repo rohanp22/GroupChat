@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wielabs.groupchat.Chatroom">
+
+<LinearLayout
+    android:weightSum="6"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/editText2"
+        android:background="@drawable/curved_bg"
+        />
+
+    <ImageView
+        android:src="@drawable/ic_arrow_forward_black_24dp"
+        android:layout_weight="5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:id="@+id/button2"
+        android:textColor="#fff"
+        android:onClick="send" />
+
+
+
+</LinearLayout>
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/textView"-->
+            <!--android:textColor="#000"-->
+            <!--android:textSize="24sp" />-->
+
+        <ListView
+            android:layout_marginBottom="60dp"
+            android:id="@+id/listView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

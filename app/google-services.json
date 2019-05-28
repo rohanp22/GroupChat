@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "233439099471",
+    "firebase_url": "https://groupchat-ebb70.firebaseio.com",
+    "project_id": "groupchat-ebb70",
+    "storage_bucket": "groupchat-ebb70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233439099471:android:c194cf1f862d44c6",
+        "android_client_info": {
+          "package_name": "com.wielabs.groupchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233439099471-n1clfk12n5a4sq94tarfgeg06cco46br.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHHIOi9spphncv66uqysKxd8ilPAIoh2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233439099471-n1clfk12n5a4sq94tarfgeg06cco46br.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
