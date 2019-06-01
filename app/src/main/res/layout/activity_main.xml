@@ -6,18 +6,26 @@
     tools:context="com.wielabs.groupchat.MainActivity">
 
     <EditText
+        android:padding="5dp"
+        android:hint="Create chat room"
+        android:layout_margin="5dp"
         android:layout_width="280dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/editText"
+        android:background="@drawable/curved_bg"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
+        android:layout_toRightOf="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ADD"
+        android:background="@drawable/curved_blackbg"
         android:id="@+id/button"
+        android:layout_margin="5dp"
+        android:textColor="#fff"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -30,4 +38,27 @@
         android:layout_below="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_centerInParent="true"
+        android:text="click"
+        android:onClick="sendd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <GridView
+        android:padding="5dp"
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="90dp"
+        android:layout_below="@+id/button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:horizontalSpacing="20dp"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"></GridView>
+
 </RelativeLayout>

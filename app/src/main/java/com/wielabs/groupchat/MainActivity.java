@@ -1,7 +1,6 @@
 package com.wielabs.groupchat;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,14 +9,26 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayList;
 
     EditText e1;
-    ListView l1;
+    GridView l1;
     ArrayAdapter<String> adapter;
     String name;
     EditText ee;
@@ -41,8 +52,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         e1 = (EditText)findViewById(R.id.editText);
-        l1 = (ListView)findViewById(R.id.listView);
+        l1 = (GridView) findViewById(R.id.gridView);
         arrayList = new ArrayList<>();
+
+
+//        Toast.makeText(this,SharedPrefManager.getInstance(this).getDeviceToken()+"",Toast.LENGTH_LONG);
+//           Log.d("TOken",SharedPrefManager.getInstance(this).getDeviceToken());
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
         l1.setAdapter(adapter);
@@ -126,5 +141,58 @@ public class MainActivity extends AppCompatActivity {
         Map<String,Object> map = new HashMap<>();
         map.put(e1.getText().toString(), "");
         reference.updateChildren(map);
+        e1.setText("");
+    }
+
+    ProgressDialog progressDialog;
+
+    private void sendTokenToServer() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Registering Device...");
+        progressDialog.show();
+
+        final String token = SharedPrefManager.getInstance(this).getDeviceToken();
+
+        if (token == null) {
+            progressDialog.dismiss();
+            Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_REGISTER_DEVICE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Toast.makeText(MainActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("token", token);
+                params.put("email","rohan@gmail.com");
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    public void sendd(View view) {
+        sendTokenToServer();
     }
 }
