@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -14,9 +13,10 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 
-/**
+/*
  * Created by Belal on 12/22/2015.
  */
+
 public class GridViewAdapter extends BaseAdapter {
 
     //Imageloader to load images
@@ -28,22 +28,23 @@ public class GridViewAdapter extends BaseAdapter {
     //Array List that would contain the urls and the titles for the images
     private String[] images;
     private String[] names;
+    private ArrayList<String> arrayList;
 
-    public GridViewAdapter (Context context, String[] images, String[] names){
+    public GridViewAdapter (Context context, String[] images, ArrayList<String> arrayList){
         //Getting all the values
         this.context = context;
         this.images = images;
-        this.names = names;
+        this.arrayList = arrayList;
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        return arrayList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return images[position];
+        return arrayList.get(position);
     }
 
     @Override
@@ -63,9 +64,6 @@ public class GridViewAdapter extends BaseAdapter {
             TextView textView = (TextView) grid.findViewById(R.id.grid_text);
             NetworkImageView networkImageView = (NetworkImageView) grid.findViewById(R.id.grid_image);
 
-            //NetworkImageView
-
-            //Initializing ImageLoader
             imageLoader = MyVolley.getInstance(context).getImageLoader();
             imageLoader.get(images[position], ImageLoader.getImageListener(networkImageView, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
 
@@ -73,11 +71,8 @@ public class GridViewAdapter extends BaseAdapter {
             networkImageView.setImageUrl(images[position], imageLoader);
 
             //Creating a textview to show the title
-            textView.setText(names[position]);
+            textView.setText(arrayList.get(position));
 
-            networkImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            networkImageView.setLayoutParams(new GridView.LayoutParams(200, 200));
-
-        return parent;
+        return grid;
     }
 }

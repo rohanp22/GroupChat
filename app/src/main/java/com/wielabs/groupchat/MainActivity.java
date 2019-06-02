@@ -40,13 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseReference reference;
 
-    ArrayList<String> arrayList;
+    ArrayList<String> arrayList,arrayList1;
 
     EditText e1;
     GridView l1;
     ArrayAdapter<String> adapter;
+    GridViewAdapter adapter2;
     String name;
     EditText ee;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +56,29 @@ public class MainActivity extends AppCompatActivity {
         e1 = (EditText)findViewById(R.id.editText);
         l1 = (GridView) findViewById(R.id.gridView);
         arrayList = new ArrayList<>();
+        arrayList1 = new ArrayList<>();
+        String images[] = new String[10];
 
 
 //        Toast.makeText(this,SharedPrefManager.getInstance(this).getDeviceToken()+"",Toast.LENGTH_LONG);
 //           Log.d("TOken",SharedPrefManager.getInstance(this).getDeviceToken());
 
+        for(int i = 0; i < 7;i++)
+            images[i] = "https://image.shutterstock.com/image-photo/various-sport-tools-on-grass-260nw-522863668.jpg";
+
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
-        l1.setAdapter(adapter);
+        arrayList1.add("abc");
+        arrayList1.add("cdf");
+        arrayList1.add("cadf");
+        adapter2 = new GridViewAdapter(this,images,arrayList);
+
+        if(l1.getCount() > 0) {
+            Toast.makeText(MainActivity.this, "count > 0", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(MainActivity.this,"count = 0",Toast.LENGTH_LONG).show();
+        }
+
 
 
         reference = FirebaseDatabase.getInstance().getReference().getRoot();
@@ -79,7 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
                 arrayList.clear();
                 arrayList.addAll(set);
-                adapter.notifyDataSetChanged();
+                adapter2.notifyDataSetChanged();
+                l1.setAdapter(adapter2);
+                //adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -89,22 +109,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         l1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
                 Intent intent = new Intent(MainActivity.this, Chatroom.class);
-                intent.putExtra("room_name", ((TextView) view).getText().toString());
+                intent.putExtra("room_name", arrayList.get(i));
                 intent.putExtra("user_name", name);
                 startActivity(intent);
-
             }
         });
-
-
-
     }
 
     public void request_username()
