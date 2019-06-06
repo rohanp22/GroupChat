@@ -60,13 +60,10 @@ public class Chatroom extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-
         user_name = getIntent().getExtras().get("user_name").toString();
         room_name = getIntent().getExtras().get("room_name").toString();
         reference = FirebaseDatabase.getInstance().getReference().child(room_name);
         setTitle(" Room - "+room_name);
-
-
 
         reference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -105,7 +102,6 @@ public class Chatroom extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home)
             finish();
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -127,14 +123,11 @@ public class Chatroom extends AppCompatActivity {
         });
         sendMultiplePush(e1.getText().toString());
         e1.setText("");
-
-
     }
 
     String chat_msg,chat_username;
     public void append_chat(DataSnapshot ss)
     {
-
         Iterator i = ss.getChildren().iterator();
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
         Set<String> set = new HashSet<String>();
