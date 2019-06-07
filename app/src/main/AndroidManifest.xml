@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
+        android:name="com.wielabs.groupchat.MyApplication"
         android:windowSoftInputMode="adjustResize">
+        <activity android:name=".ItemDescription"></activity>
         <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

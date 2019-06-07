@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">GroupChat</string>
+
+    <string-array name="sizes">
+        <item>S</item>
+        <item>M</item>
+        <item>L</item>
+        <item>XL</item>
+        <item>XXL</item>
+        <item>XXXL</item>
+    </string-array>
+
 </resources>
