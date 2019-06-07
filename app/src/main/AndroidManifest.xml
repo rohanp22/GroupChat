@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
-        android:name="com.wielabs.groupchat.MyApplication"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".ItemDescription"></activity>
+        <activity android:name=".Cart"></activity>
+        <activity android:name=".ItemDescription" />
         <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

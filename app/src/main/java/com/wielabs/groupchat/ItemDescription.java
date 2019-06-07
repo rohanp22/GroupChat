@@ -1,5 +1,6 @@
 package com.wielabs.groupchat;
 
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class ItemDescription extends AppCompatActivity {
     Button buy;
     TextView title,sp,mrp,availability,color,size;
     ShoppingItem pro;
+    Spinner s;
 
     private final String JSON_URL = "http://wielabs.esy.es/MamaGang/shoppingItem.php?id=";
     String position;
@@ -49,7 +51,7 @@ public class ItemDescription extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://wielabs.esy.es",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://wielabs.esy.es/MamaGang/addtocart.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -72,7 +74,7 @@ public class ItemDescription extends AppCompatActivity {
                         params.put("image_url1",pro.getImage1());
                         params.put("mrp",pro.getMrp());
                         params.put("sp",pro.getSp());
-                        params.put("size",pro.getSize());
+                        params.put("size",s.getSelectedItem().toString());
                         return params;
                     }
                 };
@@ -82,6 +84,8 @@ public class ItemDescription extends AppCompatActivity {
 
                 //adding the string request to request queue
                 requestQueue.add(stringRequest);
+                
+                //Intent i = new Intent(ItemDescription.this,)
             }
         });
         title = (TextView) findViewById(R.id.titleItem);
@@ -90,7 +94,7 @@ public class ItemDescription extends AppCompatActivity {
         availability = (TextView) findViewById(R.id.availability);
         color = (TextView) findViewById(R.id.color);
         size = (TextView) findViewById(R.id.size);
-        Spinner s= (Spinner) findViewById(R.id.sizeSpinner);
+        s = (Spinner) findViewById(R.id.sizeSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.sizes,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
